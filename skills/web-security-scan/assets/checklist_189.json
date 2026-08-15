@@ -1,0 +1,1325 @@
+[
+ {
+  "id": 1,
+  "category": "1. TLS/SSL & Transport",
+  "item": "รองรับเฉพาะ TLS 1.2 / 1.3 — ปิด SSLv2, SSLv3, TLS 1.0, TLS 1.1",
+  "risk": "Critical",
+  "method": "SSL Labs / nmap --script ssl-enum-ciphers"
+ },
+ {
+  "id": 2,
+  "category": "1. TLS/SSL & Transport",
+  "item": "ไม่มี cipher suite อ่อนแอ (RC4, DES, 3DES, NULL, EXPORT, MD5)",
+  "risk": "High",
+  "method": "SSL Labs / testssl.sh"
+ },
+ {
+  "id": 3,
+  "category": "1. TLS/SSL & Transport",
+  "item": "ใบรับรอง SSL ยังไม่หมดอายุ และเหลืออายุมากกว่า 30 วัน",
+  "risk": "Critical",
+  "method": "openssl s_client / SSL Labs"
+ },
+ {
+  "id": 4,
+  "category": "1. TLS/SSL & Transport",
+  "item": "Certificate chain สมบูรณ์ มี intermediate CA ครบ",
+  "risk": "Medium",
+  "method": "SSL Labs"
+ },
+ {
+  "id": 5,
+  "category": "1. TLS/SSL & Transport",
+  "item": "Common Name / SAN ครอบคลุมทุกโดเมนและ subdomain ที่ใช้จริง",
+  "risk": "High",
+  "method": "SSL Labs"
+ },
+ {
+  "id": 6,
+  "category": "1. TLS/SSL & Transport",
+  "item": "ใช้ key ขนาดอย่างน้อย RSA 2048-bit หรือ ECDSA P-256",
+  "risk": "Medium",
+  "method": "openssl x509 -text"
+ },
+ {
+  "id": 7,
+  "category": "1. TLS/SSL & Transport",
+  "item": "เปิด HSTS (Strict-Transport-Security) max-age อย่างน้อย 31536000",
+  "risk": "High",
+  "method": "curl -I / securityheaders.com"
+ },
+ {
+  "id": 8,
+  "category": "1. TLS/SSL & Transport",
+  "item": "HSTS มี includeSubDomains และพิจารณาส่ง preload",
+  "risk": "Medium",
+  "method": "hstspreload.org"
+ },
+ {
+  "id": 9,
+  "category": "1. TLS/SSL & Transport",
+  "item": "HTTP ถูก redirect ไป HTTPS อัตโนมัติ (301) ทุก path",
+  "risk": "High",
+  "method": "curl -IL http://domain"
+ },
+ {
+  "id": 10,
+  "category": "1. TLS/SSL & Transport",
+  "item": "ไม่มี Mixed Content — รูป/JS/CSS ไม่โหลดผ่าน http://",
+  "risk": "Medium",
+  "method": "Chrome DevTools Console"
+ },
+ {
+  "id": 11,
+  "category": "1. TLS/SSL & Transport",
+  "item": "เปิด OCSP Stapling",
+  "risk": "Low",
+  "method": "openssl s_client -status"
+ },
+ {
+  "id": 12,
+  "category": "1. TLS/SSL & Transport",
+  "item": "ปิด TLS compression (ป้องกัน CRIME)",
+  "risk": "Medium",
+  "method": "testssl.sh"
+ },
+ {
+  "id": 13,
+  "category": "1. TLS/SSL & Transport",
+  "item": "รองรับ Perfect Forward Secrecy (ECDHE)",
+  "risk": "Medium",
+  "method": "SSL Labs"
+ },
+ {
+  "id": 14,
+  "category": "1. TLS/SSL & Transport",
+  "item": "ระบบ auto-renew certificate ทำงานจริง และมี alert ก่อนหมดอายุ",
+  "risk": "High",
+  "method": "certbot renew --dry-run / Uptime monitor"
+ },
+ {
+  "id": 15,
+  "category": "2. HTTP Security Headers",
+  "item": "มี Content-Security-Policy และไม่ใช้ unsafe-inline / unsafe-eval",
+  "risk": "High",
+  "method": "securityheaders.com / CSP Evaluator"
+ },
+ {
+  "id": 16,
+  "category": "2. HTTP Security Headers",
+  "item": "CSP มี frame-ancestors ป้องกัน clickjacking",
+  "risk": "High",
+  "method": "curl -I"
+ },
+ {
+  "id": 17,
+  "category": "2. HTTP Security Headers",
+  "item": "X-Frame-Options: DENY หรือ SAMEORIGIN",
+  "risk": "High",
+  "method": "curl -I"
+ },
+ {
+  "id": 18,
+  "category": "2. HTTP Security Headers",
+  "item": "X-Content-Type-Options: nosniff",
+  "risk": "Medium",
+  "method": "curl -I"
+ },
+ {
+  "id": 19,
+  "category": "2. HTTP Security Headers",
+  "item": "Referrer-Policy: strict-origin-when-cross-origin หรือเข้มกว่า",
+  "risk": "Medium",
+  "method": "curl -I"
+ },
+ {
+  "id": 20,
+  "category": "2. HTTP Security Headers",
+  "item": "Permissions-Policy จำกัด camera / microphone / geolocation",
+  "risk": "Low",
+  "method": "curl -I"
+ },
+ {
+  "id": 21,
+  "category": "2. HTTP Security Headers",
+  "item": "ไม่มี header เปิดเผยเวอร์ชัน (Server, X-Powered-By, X-AspNet-Version)",
+  "risk": "Medium",
+  "method": "curl -I"
+ },
+ {
+  "id": 22,
+  "category": "2. HTTP Security Headers",
+  "item": "CORS ไม่ใช้ Allow-Origin: * ร่วมกับ Allow-Credentials: true",
+  "risk": "Critical",
+  "method": "curl -H 'Origin: https://evil.com' -I"
+ },
+ {
+  "id": 23,
+  "category": "2. HTTP Security Headers",
+  "item": "CORS whitelist เฉพาะโดเมนที่จำเป็น ไม่สะท้อน Origin กลับอัตโนมัติ",
+  "risk": "High",
+  "method": "ทดสอบด้วย Origin ปลอม"
+ },
+ {
+  "id": 24,
+  "category": "2. HTTP Security Headers",
+  "item": "Cache-Control: no-store บนหน้าที่มีข้อมูลส่วนบุคคล",
+  "risk": "Medium",
+  "method": "curl -I หน้า account/order"
+ },
+ {
+  "id": 25,
+  "category": "2. HTTP Security Headers",
+  "item": "Cross-Origin-Opener-Policy / Resource-Policy ตั้งค่าเหมาะสม",
+  "risk": "Low",
+  "method": "securityheaders.com"
+ },
+ {
+  "id": 26,
+  "category": "2. HTTP Security Headers",
+  "item": "ไม่ใช้ X-XSS-Protection ค่าเก่าที่ก่อช่องโหว่ (ควรเป็น 0 หรือไม่ระบุ)",
+  "risk": "Low",
+  "method": "curl -I"
+ },
+ {
+  "id": 27,
+  "category": "2. HTTP Security Headers",
+  "item": "ทุก response ระบุ Content-Type พร้อม charset=utf-8",
+  "risk": "Low",
+  "method": "curl -I"
+ },
+ {
+  "id": 28,
+  "category": "2. HTTP Security Headers",
+  "item": "Security header ถูกตั้งครบทุก subdomain ไม่ใช่แค่โดเมนหลัก",
+  "risk": "Medium",
+  "method": "ตรวจทีละ subdomain"
+ },
+ {
+  "id": 29,
+  "category": "3. Information Disclosure",
+  "item": "ไม่มี Directory Listing เปิดในทุกโฟลเดอร์",
+  "risk": "Medium",
+  "method": "เปิด /assets/ /uploads/ ตรง ๆ"
+ },
+ {
+  "id": 30,
+  "category": "3. Information Disclosure",
+  "item": "ไม่สามารถเข้าถึง /.git/ /.svn/ /.hg/ ได้",
+  "risk": "Critical",
+  "method": "curl domain/.git/config"
+ },
+ {
+  "id": 31,
+  "category": "3. Information Disclosure",
+  "item": "ไม่มี .env, config.bak, .DS_Store บน public path",
+  "risk": "Critical",
+  "method": "dirsearch / ffuf"
+ },
+ {
+  "id": 32,
+  "category": "3. Information Disclosure",
+  "item": "ไม่มี phpinfo.php / info.php / test.php",
+  "risk": "High",
+  "method": "dirsearch"
+ },
+ {
+  "id": 33,
+  "category": "3. Information Disclosure",
+  "item": "ปิด display_errors บน production ไม่โชว์ stack trace หรือ path",
+  "risk": "High",
+  "method": "ยิง request ผิดรูปแบบดู response"
+ },
+ {
+  "id": 34,
+  "category": "3. Information Disclosure",
+  "item": "หน้า error 404/500 เป็น custom page ไม่เปิดเผย framework/เวอร์ชัน",
+  "risk": "Medium",
+  "method": "เปิด URL มั่ว"
+ },
+ {
+  "id": 35,
+  "category": "3. Information Disclosure",
+  "item": "ไม่มีโฟลเดอร์ /backup/ /old/ /temp/ /dev/ /test/ เข้าถึงได้",
+  "risk": "Critical",
+  "method": "dirsearch / ffuf"
+ },
+ {
+  "id": 36,
+  "category": "3. Information Disclosure",
+  "item": "ไม่มีไฟล์ SQL dump (.sql, .sql.gz, .zip) บน web root",
+  "risk": "Critical",
+  "method": "dirsearch"
+ },
+ {
+  "id": 37,
+  "category": "3. Information Disclosure",
+  "item": "Source map (.map) ไม่ถูก deploy ขึ้น production",
+  "risk": "Medium",
+  "method": "ดู Network tab / เปิด .js.map"
+ },
+ {
+  "id": 38,
+  "category": "3. Information Disclosure",
+  "item": "ไม่มี API key / token / credential ฝังใน JavaScript ฝั่ง client",
+  "risk": "Critical",
+  "method": "View source + ค้นคำว่า key, token, secret"
+ },
+ {
+  "id": 39,
+  "category": "3. Information Disclosure",
+  "item": "ไม่มี HTML comment ที่เปิดเผย internal path, credential หรือ TODO สำคัญ",
+  "risk": "Low",
+  "method": "View source"
+ },
+ {
+  "id": 40,
+  "category": "3. Information Disclosure",
+  "item": "robots.txt ไม่เปิดเผย admin path ที่ต้องการซ่อน",
+  "risk": "Low",
+  "method": "เปิด /robots.txt"
+ },
+ {
+  "id": 41,
+  "category": "3. Information Disclosure",
+  "item": "ไม่มี composer.json / package.json / lock file บน public path",
+  "risk": "Medium",
+  "method": "curl domain/package.json"
+ },
+ {
+  "id": 42,
+  "category": "3. Information Disclosure",
+  "item": "ลบ EXIF metadata ของรูปที่ผู้ใช้อัปโหลดก่อนเผยแพร่",
+  "risk": "Low",
+  "method": "exiftool บนรูปจริง"
+ },
+ {
+  "id": 43,
+  "category": "4. Injection & Input Validation",
+  "item": "SQL Injection — ทุก query ใช้ prepared statement / parameterized",
+  "risk": "Critical",
+  "method": "Code review + sqlmap (staging)"
+ },
+ {
+  "id": 44,
+  "category": "4. Injection & Input Validation",
+  "item": "ไม่มี dynamic SQL ที่ต่อ string จาก user input โดยตรง",
+  "risk": "Critical",
+  "method": "grep หา query concatenation"
+ },
+ {
+  "id": 45,
+  "category": "4. Injection & Input Validation",
+  "item": "ทดสอบ Blind / Time-based SQLi บนทุก parameter",
+  "risk": "Critical",
+  "method": "sqlmap --level 3 (staging)"
+ },
+ {
+  "id": 46,
+  "category": "4. Injection & Input Validation",
+  "item": "Reflected XSS — output encoding ทุกจุดที่แสดง user input",
+  "risk": "High",
+  "method": "XSS payload ใน search / query string"
+ },
+ {
+  "id": 47,
+  "category": "4. Injection & Input Validation",
+  "item": "Stored XSS — sanitize ตอนบันทึกและ encode ตอนแสดงผล",
+  "risk": "Critical",
+  "method": "ทดสอบใน comment / review / profile"
+ },
+ {
+  "id": 48,
+  "category": "4. Injection & Input Validation",
+  "item": "DOM-based XSS — ไม่ใช้ innerHTML / eval() / document.write กับข้อมูลจาก URL",
+  "risk": "High",
+  "method": "DOM Invader / code review"
+ },
+ {
+  "id": 49,
+  "category": "4. Injection & Input Validation",
+  "item": "Command Injection — ไม่ส่ง user input เข้า exec / system / shell_exec",
+  "risk": "Critical",
+  "method": "Code review"
+ },
+ {
+  "id": 50,
+  "category": "4. Injection & Input Validation",
+  "item": "Path Traversal (../) บน parameter ที่ใช้อ่านหรือส่งไฟล์",
+  "risk": "Critical",
+  "method": "?file=../../etc/passwd"
+ },
+ {
+  "id": 51,
+  "category": "4. Injection & Input Validation",
+  "item": "Local / Remote File Inclusion (LFI / RFI)",
+  "risk": "Critical",
+  "method": "ทดสอบ include parameter"
+ },
+ {
+  "id": 52,
+  "category": "4. Injection & Input Validation",
+  "item": "SSRF — endpoint ที่รับ URL ต้อง whitelist domain และบล็อก internal IP",
+  "risk": "Critical",
+  "method": "ทดสอบ URL ชี้ 169.254.169.254 / localhost"
+ },
+ {
+  "id": 53,
+  "category": "4. Injection & Input Validation",
+  "item": "XXE — ปิด external entity ใน XML parser ทุกตัว",
+  "risk": "High",
+  "method": "ส่ง XML payload ที่มี DOCTYPE"
+ },
+ {
+  "id": 54,
+  "category": "4. Injection & Input Validation",
+  "item": "Open Redirect — ตรวจ parameter redirect / return_url / next",
+  "risk": "Medium",
+  "method": "?redirect=//evil.com"
+ },
+ {
+  "id": 55,
+  "category": "4. Injection & Input Validation",
+  "item": "Server-Side Template Injection (SSTI)",
+  "risk": "High",
+  "method": "ส่ง {{7*7}} ใน field ที่ render"
+ },
+ {
+  "id": 56,
+  "category": "4. Injection & Input Validation",
+  "item": "HTTP Header / CRLF Injection",
+  "risk": "Medium",
+  "method": "ใส่ %0d%0a ใน parameter"
+ },
+ {
+  "id": 57,
+  "category": "4. Injection & Input Validation",
+  "item": "Validate input ฝั่ง server เสมอ ไม่พึ่ง client-side validation อย่างเดียว",
+  "risk": "High",
+  "method": "ส่ง request ตรงด้วย Postman/Burp"
+ },
+ {
+  "id": 58,
+  "category": "4. Injection & Input Validation",
+  "item": "ใช้ whitelist validation (type, length, format, range) ทุก field",
+  "risk": "High",
+  "method": "Code review"
+ },
+ {
+  "id": 59,
+  "category": "5. Authentication & Session",
+  "item": "รหัสผ่านถูก hash ด้วย bcrypt / Argon2 / scrypt ไม่ใช่ MD5 หรือ SHA1",
+  "risk": "Critical",
+  "method": "ตรวจ schema ตาราง user"
+ },
+ {
+  "id": 60,
+  "category": "5. Authentication & Session",
+  "item": "มี salt แยกต่อผู้ใช้แต่ละคน",
+  "risk": "High",
+  "method": "Code review"
+ },
+ {
+  "id": 61,
+  "category": "5. Authentication & Session",
+  "item": "Password policy กำหนดความยาวขั้นต่ำ 8-12 ตัวอักษร",
+  "risk": "Medium",
+  "method": "ทดสอบสมัครสมาชิก"
+ },
+ {
+  "id": 62,
+  "category": "5. Authentication & Session",
+  "item": "บล็อกรหัสผ่านที่พบใน data breach หรือ common password list",
+  "risk": "Medium",
+  "method": "ทดสอบด้วย 'password123'"
+ },
+ {
+  "id": 63,
+  "category": "5. Authentication & Session",
+  "item": "มี rate limiting หรือ account lockout เมื่อ login ผิดหลายครั้ง",
+  "risk": "Critical",
+  "method": "ยิง login ผิด 20 ครั้งติด"
+ },
+ {
+  "id": 64,
+  "category": "5. Authentication & Session",
+  "item": "มี CAPTCHA หรือกลไกกัน bot บนหน้า login / register / reset",
+  "risk": "High",
+  "method": "ทดสอบ automate"
+ },
+ {
+  "id": 65,
+  "category": "5. Authentication & Session",
+  "item": "รองรับ 2FA / MFA อย่างน้อยสำหรับบัญชี admin",
+  "risk": "High",
+  "method": "ตรวจหน้า security setting"
+ },
+ {
+  "id": 66,
+  "category": "5. Authentication & Session",
+  "item": "Session ID ถูก regenerate หลัง login สำเร็จ (กัน session fixation)",
+  "risk": "High",
+  "method": "เทียบ cookie ก่อน/หลัง login"
+ },
+ {
+  "id": 67,
+  "category": "5. Authentication & Session",
+  "item": "Session cookie มี HttpOnly",
+  "risk": "High",
+  "method": "DevTools > Application > Cookies"
+ },
+ {
+  "id": 68,
+  "category": "5. Authentication & Session",
+  "item": "Session cookie มี Secure",
+  "risk": "High",
+  "method": "DevTools"
+ },
+ {
+  "id": 69,
+  "category": "5. Authentication & Session",
+  "item": "Session cookie มี SameSite=Lax หรือ Strict",
+  "risk": "Medium",
+  "method": "DevTools"
+ },
+ {
+  "id": 70,
+  "category": "5. Authentication & Session",
+  "item": "มี idle timeout (เช่น 30 นาที) และ absolute session timeout",
+  "risk": "Medium",
+  "method": "ทิ้งไว้แล้วลองใช้งานต่อ"
+ },
+ {
+  "id": 71,
+  "category": "5. Authentication & Session",
+  "item": "Logout ทำลาย session ฝั่ง server จริง ไม่ใช่แค่ลบ cookie",
+  "risk": "High",
+  "method": "reuse session id เดิมหลัง logout"
+ },
+ {
+  "id": 72,
+  "category": "5. Authentication & Session",
+  "item": "CSRF token บนทุก request ที่เปลี่ยนสถานะข้อมูล",
+  "risk": "Critical",
+  "method": "ส่ง POST โดยไม่มี token"
+ },
+ {
+  "id": 73,
+  "category": "5. Authentication & Session",
+  "item": "Reset password ใช้ token สุ่ม หมดอายุ และใช้ได้ครั้งเดียว",
+  "risk": "Critical",
+  "method": "ใช้ลิงก์ซ้ำ / ลิงก์เก่า"
+ },
+ {
+  "id": 74,
+  "category": "5. Authentication & Session",
+  "item": "ไม่เปิดเผยว่าอีเมล/username มีอยู่จริงหรือไม่ (user enumeration)",
+  "risk": "Medium",
+  "method": "เทียบข้อความ error"
+ },
+ {
+  "id": 75,
+  "category": "5. Authentication & Session",
+  "item": "JWT ตรวจ signature เสมอ ไม่ยอมรับ alg=none และ secret แข็งแรง",
+  "risk": "Critical",
+  "method": "แก้ header เป็น alg:none แล้วทดสอบ"
+ },
+ {
+  "id": 76,
+  "category": "5. Authentication & Session",
+  "item": "Access token อายุสั้น + refresh token เพิกถอนได้",
+  "risk": "High",
+  "method": "ตรวจ exp claim / logic revoke"
+ },
+ {
+  "id": 77,
+  "category": "6. Authorization & Access Control",
+  "item": "IDOR — เปลี่ยน ID ใน URL/parameter แล้วเข้าถึงข้อมูลคนอื่นไม่ได้",
+  "risk": "Critical",
+  "method": "สลับ order_id / user_id ระหว่าง 2 บัญชี"
+ },
+ {
+  "id": 78,
+  "category": "6. Authorization & Access Control",
+  "item": "ทุก endpoint ตรวจสิทธิ์ฝั่ง server ไม่พึ่งการซ่อนปุ่มบน UI",
+  "risk": "Critical",
+  "method": "เรียก API ตรงด้วยบัญชีสิทธิ์ต่ำ"
+ },
+ {
+  "id": 79,
+  "category": "6. Authorization & Access Control",
+  "item": "Admin panel ต้อง login และจำกัดตาม role เสมอ",
+  "risk": "Critical",
+  "method": "เปิด /admin แบบไม่ login"
+ },
+ {
+  "id": 80,
+  "category": "6. Authorization & Access Control",
+  "item": "ไม่มี privilege escalation จาก user ทั่วไปไปเป็น admin",
+  "risk": "Critical",
+  "method": "แก้ role ใน request / token"
+ },
+ {
+  "id": 81,
+  "category": "6. Authorization & Access Control",
+  "item": "ทดสอบ access control ทั้งแนวตั้งและแนวนอนครบทุก role",
+  "risk": "High",
+  "method": "Matrix role x endpoint"
+ },
+ {
+  "id": 82,
+  "category": "6. Authorization & Access Control",
+  "item": "Admin path ไม่เดาง่าย และจำกัด IP หรือใช้ VPN ถ้าเป็นไปได้",
+  "risk": "Medium",
+  "method": "ตรวจ config nginx/firewall"
+ },
+ {
+  "id": 83,
+  "category": "6. Authorization & Access Control",
+  "item": "Force browsing — เข้า URL ขั้นตอนถัดไปตรง ๆ โดยไม่ผ่าน flow แล้วถูกบล็อก",
+  "risk": "High",
+  "method": "ข้ามขั้นตอน checkout / approval"
+ },
+ {
+  "id": 84,
+  "category": "6. Authorization & Access Control",
+  "item": "Endpoint หรือฟีเจอร์ที่เลิกใช้แล้วถูกปิดจริง",
+  "risk": "Medium",
+  "method": "ตรวจ route list"
+ },
+ {
+  "id": 85,
+  "category": "6. Authorization & Access Control",
+  "item": "Mass assignment — ผู้ใช้แก้ field เช่น role, is_admin, price ผ่าน form ไม่ได้",
+  "risk": "Critical",
+  "method": "เพิ่ม field แปลกปลอมใน payload"
+ },
+ {
+  "id": 86,
+  "category": "6. Authorization & Access Control",
+  "item": "ไฟล์/รายงานที่ export ต้องตรวจสิทธิ์ก่อนดาวน์โหลด",
+  "risk": "High",
+  "method": "เปิด URL ไฟล์ด้วยบัญชีอื่น"
+ },
+ {
+  "id": 87,
+  "category": "6. Authorization & Access Control",
+  "item": "ระบบหลายร้าน/หลายแบรนด์ แยกข้อมูลจากกันได้จริง (tenant isolation)",
+  "risk": "Critical",
+  "method": "ทดสอบข้ามร้าน ELOOP/MOOV"
+ },
+ {
+  "id": 88,
+  "category": "6. Authorization & Access Control",
+  "item": "บัญชี default หรือบัญชีทดสอบ (admin/admin, demo) ถูกลบแล้ว",
+  "risk": "Critical",
+  "method": "ตรวจตาราง user"
+ },
+ {
+  "id": 89,
+  "category": "7. File Upload & Storage",
+  "item": "Whitelist นามสกุลไฟล์ที่อนุญาต (ไม่ใช่ blacklist)",
+  "risk": "Critical",
+  "method": "อัปโหลด .php, .phtml, .htaccess"
+ },
+ {
+  "id": 90,
+  "category": "7. File Upload & Storage",
+  "item": "ตรวจ MIME type จริงจากเนื้อไฟล์ ไม่ใช่จากชื่อไฟล์หรือ header",
+  "risk": "Critical",
+  "method": "เปลี่ยนนามสกุลไฟล์ shell เป็น .jpg"
+ },
+ {
+  "id": 91,
+  "category": "7. File Upload & Storage",
+  "item": "เปลี่ยนชื่อไฟล์เป็นค่าสุ่มตอนบันทึก",
+  "risk": "Medium",
+  "method": "ดู URL ไฟล์ที่ได้"
+ },
+ {
+  "id": 92,
+  "category": "7. File Upload & Storage",
+  "item": "ไฟล์อัปโหลดเก็บนอก web root หรือปิดการรัน script ในโฟลเดอร์นั้น",
+  "risk": "Critical",
+  "method": "ตรวจ .htaccess / nginx location"
+ },
+ {
+  "id": 93,
+  "category": "7. File Upload & Storage",
+  "item": "จำกัดขนาดไฟล์ที่อัปโหลดได้",
+  "risk": "Medium",
+  "method": "อัปโหลดไฟล์ขนาดใหญ่มาก"
+ },
+ {
+  "id": 94,
+  "category": "7. File Upload & Storage",
+  "item": "สแกนไวรัส/มัลแวร์บนไฟล์ที่อัปโหลด",
+  "risk": "Medium",
+  "method": "ClamAV / EICAR test file"
+ },
+ {
+  "id": 95,
+  "category": "7. File Upload & Storage",
+  "item": "ป้องกัน SVG ที่ฝัง JavaScript",
+  "risk": "High",
+  "method": "อัปโหลด SVG ที่มี <script>"
+ },
+ {
+  "id": 96,
+  "category": "7. File Upload & Storage",
+  "item": "รูปภาพถูก re-encode เพื่อลบ payload ที่ฝังมากับไฟล์",
+  "risk": "Medium",
+  "method": "Code review"
+ },
+ {
+  "id": 97,
+  "category": "7. File Upload & Storage",
+  "item": "Path ของไฟล์ไม่เดาลำดับได้ (ไม่ใช่ 1.jpg, 2.jpg)",
+  "risk": "Medium",
+  "method": "ลองไล่เลข"
+ },
+ {
+  "id": 98,
+  "category": "7. File Upload & Storage",
+  "item": "ไฟล์ที่เป็นข้อมูลส่วนบุคคลต้องใช้ signed URL หรือ token",
+  "risk": "High",
+  "method": "เปิดลิงก์ไฟล์แบบไม่ login"
+ },
+ {
+  "id": 99,
+  "category": "7. File Upload & Storage",
+  "item": "ลบไฟล์ชั่วคราวอัตโนมัติตามอายุ (cleanup job)",
+  "risk": "Low",
+  "method": "ตรวจ cron"
+ },
+ {
+  "id": 100,
+  "category": "8. API & Integration Security",
+  "item": "ทุก API endpoint ต้อง authenticate ก่อนใช้งาน",
+  "risk": "Critical",
+  "method": "เรียก API โดยไม่ใส่ token"
+ },
+ {
+  "id": 101,
+  "category": "8. API & Integration Security",
+  "item": "มี rate limiting ต่อ IP และต่อ API key",
+  "risk": "High",
+  "method": "ยิงซ้ำ 100 ครั้ง/นาที"
+ },
+ {
+  "id": 102,
+  "category": "8. API & Integration Security",
+  "item": "API key ไม่ถูกฝังใน frontend, mobile app หรือ public repo",
+  "risk": "Critical",
+  "method": "View source / gitleaks"
+ },
+ {
+  "id": 103,
+  "category": "8. API & Integration Security",
+  "item": "API key หมุนเวียนได้ (rotate) และมีวันหมดอายุ",
+  "risk": "Medium",
+  "method": "ตรวจ process"
+ },
+ {
+  "id": 104,
+  "category": "8. API & Integration Security",
+  "item": "Webhook ตรวจ signature ก่อนประมวลผลทุกครั้ง",
+  "risk": "Critical",
+  "method": "ส่ง webhook ปลอมทดสอบ"
+ },
+ {
+  "id": 105,
+  "category": "8. API & Integration Security",
+  "item": "GraphQL introspection ปิดบน production",
+  "risk": "Medium",
+  "method": "ส่ง introspection query"
+ },
+ {
+  "id": 106,
+  "category": "8. API & Integration Security",
+  "item": "Error message ไม่เปิดเผยโครงสร้าง DB, query หรือ stack trace",
+  "risk": "High",
+  "method": "ส่ง payload ผิดรูปแบบ"
+ },
+ {
+  "id": 107,
+  "category": "8. API & Integration Security",
+  "item": "Pagination มี limit สูงสุด ป้องกันการดึงข้อมูลทั้งฐาน",
+  "risk": "High",
+  "method": "?limit=999999"
+ },
+ {
+  "id": 108,
+  "category": "8. API & Integration Security",
+  "item": "มี API versioning และปิด endpoint เวอร์ชันเก่าที่เลิกใช้",
+  "risk": "Medium",
+  "method": "ตรวจ route"
+ },
+ {
+  "id": 109,
+  "category": "8. API & Integration Security",
+  "item": "การ export ข้อมูลจำนวนมากถูก log และแจ้งเตือน",
+  "risk": "High",
+  "method": "ตรวจ log"
+ },
+ {
+  "id": 110,
+  "category": "8. API & Integration Security",
+  "item": "Token ของ Shopee / TikTok Shop / Lazada เก็บแบบเข้ารหัส",
+  "risk": "Critical",
+  "method": "ตรวจ DB / secret manager"
+ },
+ {
+  "id": 111,
+  "category": "8. API & Integration Security",
+  "item": "Service account ของ BigQuery / Google Cloud ใช้สิทธิ์ least privilege",
+  "risk": "High",
+  "method": "IAM review"
+ },
+ {
+  "id": 112,
+  "category": "8. API & Integration Security",
+  "item": "ไม่มี secret ค้างอยู่ใน Git history",
+  "risk": "Critical",
+  "method": "gitleaks / trufflehog"
+ },
+ {
+  "id": 113,
+  "category": "8. API & Integration Security",
+  "item": "CORS ของ API จำกัดเฉพาะโดเมนของบริษัท",
+  "risk": "High",
+  "method": "ทดสอบด้วย Origin ปลอม"
+ },
+ {
+  "id": 114,
+  "category": "9. Dependency & CMS",
+  "item": "ไม่มี dependency ที่มี CVE ระดับ High/Critical",
+  "risk": "Critical",
+  "method": "npm audit / composer audit"
+ },
+ {
+  "id": 115,
+  "category": "9. Dependency & CMS",
+  "item": "CMS (WordPress ฯลฯ) อัปเดตเป็นเวอร์ชันล่าสุด",
+  "risk": "Critical",
+  "method": "WPScan / หน้า admin"
+ },
+ {
+  "id": 116,
+  "category": "9. Dependency & CMS",
+  "item": "Theme และ Plugin อัปเดต และลบตัวที่ไม่ได้ใช้ออก",
+  "risk": "High",
+  "method": "WPScan"
+ },
+ {
+  "id": 117,
+  "category": "9. Dependency & CMS",
+  "item": "ไม่ใช้ plugin หรือ library ที่เลิก maintain แล้ว",
+  "risk": "High",
+  "method": "ตรวจ repo วันที่อัปเดตล่าสุด"
+ },
+ {
+  "id": 118,
+  "category": "9. Dependency & CMS",
+  "item": "PHP / Node.js / Python ยังอยู่ในเวอร์ชันที่ได้รับ security support",
+  "risk": "Critical",
+  "method": "php -v / node -v เทียบ EOL"
+ },
+ {
+  "id": 119,
+  "category": "9. Dependency & CMS",
+  "item": "Framework ที่ใช้ไม่ใช่เวอร์ชัน EOL",
+  "risk": "High",
+  "method": "เทียบ release note"
+ },
+ {
+  "id": 120,
+  "category": "9. Dependency & CMS",
+  "item": "มี Dependabot หรือกระบวนการตรวจ dependency ประจำ",
+  "risk": "Medium",
+  "method": "ตรวจ CI config"
+ },
+ {
+  "id": 121,
+  "category": "9. Dependency & CMS",
+  "item": "ไม่โหลด library จาก CDN ที่ไม่น่าเชื่อถือ",
+  "risk": "High",
+  "method": "ดู Network tab"
+ },
+ {
+  "id": 122,
+  "category": "9. Dependency & CMS",
+  "item": "ใช้ Subresource Integrity (SRI) กับ script จาก CDN",
+  "risk": "Medium",
+  "method": "View source ดู integrity attribute"
+ },
+ {
+  "id": 123,
+  "category": "9. Dependency & CMS",
+  "item": "Lock file (package-lock, composer.lock) ถูก commit เพื่อ pin เวอร์ชัน",
+  "risk": "Medium",
+  "method": "ตรวจ repo"
+ },
+ {
+  "id": 124,
+  "category": "10. Server & Infrastructure",
+  "item": "Port ที่ไม่จำเป็นถูกปิดทั้งหมด",
+  "risk": "High",
+  "method": "nmap -sV domain"
+ },
+ {
+  "id": 125,
+  "category": "10. Server & Infrastructure",
+  "item": "SSH ปิด root login และใช้ key แทน password",
+  "risk": "Critical",
+  "method": "ตรวจ /etc/ssh/sshd_config"
+ },
+ {
+  "id": 126,
+  "category": "10. Server & Infrastructure",
+  "item": "SSH จำกัด IP หรือใช้ fail2ban ป้องกัน brute force",
+  "risk": "High",
+  "method": "fail2ban-client status"
+ },
+ {
+  "id": 127,
+  "category": "10. Server & Infrastructure",
+  "item": "Database ไม่เปิดรับ connection จากอินเทอร์เน็ตโดยตรง",
+  "risk": "Critical",
+  "method": "nmap port 3306/5432"
+ },
+ {
+  "id": 128,
+  "category": "10. Server & Infrastructure",
+  "item": "phpMyAdmin / Adminer ถูกถอดออกหรือจำกัดสิทธิ์เข้าถึง",
+  "risk": "Critical",
+  "method": "curl domain/phpmyadmin"
+ },
+ {
+  "id": 129,
+  "category": "10. Server & Infrastructure",
+  "item": "Firewall ตั้งค่าแบบ default deny แล้วเปิดเฉพาะที่จำเป็น",
+  "risk": "High",
+  "method": "ufw status / cloud security group"
+ },
+ {
+  "id": 130,
+  "category": "10. Server & Infrastructure",
+  "item": "OS และ package ได้รับ security patch ล่าสุด",
+  "risk": "Critical",
+  "method": "apt list --upgradable"
+ },
+ {
+  "id": 131,
+  "category": "10. Server & Infrastructure",
+  "item": "ไม่มี default credential บน service ใด ๆ",
+  "risk": "Critical",
+  "method": "ตรวจทุก service"
+ },
+ {
+  "id": 132,
+  "category": "10. Server & Infrastructure",
+  "item": "Web server รันด้วย user สิทธิ์ต่ำ ไม่ใช่ root",
+  "risk": "High",
+  "method": "ps aux | grep nginx"
+ },
+ {
+  "id": 133,
+  "category": "10. Server & Infrastructure",
+  "item": "File permission ถูกต้อง ไม่มีไฟล์หรือโฟลเดอร์ 777",
+  "risk": "High",
+  "method": "find . -perm 0777"
+ },
+ {
+  "id": 134,
+  "category": "10. Server & Infrastructure",
+  "item": "มี WAF (Cloudflare / ModSecurity) พร้อม rule ครอบคลุม OWASP Top 10",
+  "risk": "High",
+  "method": "ทดสอบ payload พื้นฐาน"
+ },
+ {
+  "id": 135,
+  "category": "10. Server & Infrastructure",
+  "item": "มี DDoS protection และ rate limit ระดับ edge",
+  "risk": "Medium",
+  "method": "ตรวจ Cloudflare setting"
+ },
+ {
+  "id": 136,
+  "category": "10. Server & Infrastructure",
+  "item": "DNS มี SPF, DKIM, DMARC ป้องกันการปลอมอีเมลในนามบริษัท",
+  "risk": "High",
+  "method": "MXToolbox"
+ },
+ {
+  "id": 137,
+  "category": "10. Server & Infrastructure",
+  "item": "ไม่มี dangling CNAME ที่เสี่ยง subdomain takeover",
+  "risk": "High",
+  "method": "subfinder + dig"
+ },
+ {
+  "id": 138,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "บันทึก log การ login สำเร็จและล้มเหลว พร้อม IP และ timestamp",
+  "risk": "High",
+  "method": "ตรวจ log จริง"
+ },
+ {
+  "id": 139,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "มี audit trail การเปลี่ยนแปลงข้อมูลสำคัญ (ราคา, สิทธิ์, คำสั่งซื้อ)",
+  "risk": "High",
+  "method": "ตรวจตาราง audit"
+ },
+ {
+  "id": 140,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "Log ไม่บันทึกรหัสผ่าน, token หรือเลขบัตรแบบ plaintext",
+  "risk": "Critical",
+  "method": "grep ใน log"
+ },
+ {
+  "id": 141,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "Log ถูกส่งไปเก็บนอกเครื่องและป้องกันการแก้ไขย้อนหลัง",
+  "risk": "Medium",
+  "method": "ตรวจ log shipping"
+ },
+ {
+  "id": 142,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "เก็บ log ย้อนหลังอย่างน้อย 90 วัน",
+  "risk": "Medium",
+  "method": "ตรวจ retention policy"
+ },
+ {
+  "id": 143,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "มี alert เมื่อมี login ผิดปกติหรือจากตำแหน่งที่ผิดปกติ",
+  "risk": "Medium",
+  "method": "ตรวจ alert rule"
+ },
+ {
+  "id": 144,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "มี File Integrity Monitoring แจ้งเตือนเมื่อไฟล์ระบบถูกแก้ไข",
+  "risk": "Medium",
+  "method": "AIDE / Wazuh"
+ },
+ {
+  "id": 145,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "มี uptime และ error monitoring พร้อมช่องทางแจ้งเตือน",
+  "risk": "Medium",
+  "method": "UptimeRobot / Sentry"
+ },
+ {
+  "id": 146,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "มีแผน Incident Response เป็นลายลักษณ์อักษรและระบุผู้รับผิดชอบ",
+  "risk": "High",
+  "method": "ตรวจเอกสาร"
+ },
+ {
+  "id": 147,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "มีช่องทางให้คนภายนอกรายงานช่องโหว่ (security.txt หรืออีเมล)",
+  "risk": "Low",
+  "method": "curl domain/.well-known/security.txt"
+ },
+ {
+  "id": 148,
+  "category": "11. Logging, Monitoring & IR",
+  "item": "ซ้อมกู้คืนระบบและซ้อมรับมือเหตุการณ์อย่างน้อยปีละครั้ง",
+  "risk": "Medium",
+  "method": "ตรวจบันทึกการซ้อม"
+ },
+ {
+  "id": 149,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "ราคาสินค้าไม่สามารถแก้ได้จากฝั่ง client (hidden field / request tampering)",
+  "risk": "Critical",
+  "method": "แก้ราคาใน request ตอน checkout"
+ },
+ {
+  "id": 150,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "คูปอง/โค้ดส่วนลดใช้ซ้ำเกินเงื่อนไขไม่ได้",
+  "risk": "High",
+  "method": "ใช้โค้ดเดิมซ้ำหลายครั้ง"
+ },
+ {
+  "id": 151,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "คูปองซ้อนกันไม่ได้ถ้าไม่อนุญาต",
+  "risk": "Medium",
+  "method": "ใส่หลายโค้ดพร้อมกัน"
+ },
+ {
+  "id": 152,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "จำนวนสินค้าติดลบหรือศูนย์ถูกปฏิเสธ",
+  "risk": "High",
+  "method": "ส่ง qty = -1"
+ },
+ {
+  "id": 153,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "ป้องกัน race condition ตอนตัดสต็อก (กัน overselling)",
+  "risk": "Critical",
+  "method": "ยิง order พร้อมกันหลาย request"
+ },
+ {
+  "id": 154,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "ป้องกัน race condition ตอนแลกแต้ม/รางวัลในระบบ reward",
+  "risk": "Critical",
+  "method": "ยิง redeem พร้อมกัน"
+ },
+ {
+  "id": 155,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "คะแนนสะสมแก้ไขผ่าน API โดยตรงไม่ได้",
+  "risk": "Critical",
+  "method": "ส่ง points ใน payload"
+ },
+ {
+  "id": 156,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "ยืนยันยอดชำระเงินกับ payment gateway ฝั่ง server เสมอ",
+  "risk": "Critical",
+  "method": "ตรวจ callback verification"
+ },
+ {
+  "id": 157,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "สถานะคำสั่งซื้อเปลี่ยนได้เฉพาะตาม flow ที่กำหนด",
+  "risk": "High",
+  "method": "ยิงเปลี่ยนสถานะข้ามขั้น"
+ },
+ {
+  "id": 158,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "มีกลไกกัน bot กวาดคูปองหรือสินค้า flash sale",
+  "risk": "Medium",
+  "method": "ทดสอบ automate"
+ },
+ {
+  "id": 159,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "การคืนเงิน/ยกเลิกต้องผ่านการอนุมัติและถูกบันทึก log",
+  "risk": "High",
+  "method": "ตรวจ flow และ log"
+ },
+ {
+  "id": 160,
+  "category": "12. Business Logic (E-commerce)",
+  "item": "ป้องกัน replay attack บนคำขอที่เกี่ยวกับเงินหรือแต้ม",
+  "risk": "High",
+  "method": "ส่ง request เดิมซ้ำ"
+ },
+ {
+  "id": 161,
+  "category": "13. PDPA & Privacy",
+  "item": "มี Privacy Policy ที่เป็นปัจจุบันและเข้าถึงได้จากทุกหน้า",
+  "risk": "High",
+  "method": "เปิด /privacy"
+ },
+ {
+  "id": 162,
+  "category": "13. PDPA & Privacy",
+  "item": "Cookie consent เลือก opt-in ได้จริง ไม่ใช่แค่แจ้งให้ทราบ",
+  "risk": "High",
+  "method": "ทดสอบ banner"
+ },
+ {
+  "id": 163,
+  "category": "13. PDPA & Privacy",
+  "item": "Tracking pixel (Meta / TikTok / GA) ยิงหลังได้รับความยินยอมเท่านั้น",
+  "risk": "High",
+  "method": "ดู Network ก่อนกดยอมรับ"
+ },
+ {
+  "id": 164,
+  "category": "13. PDPA & Privacy",
+  "item": "มีบันทึกความยินยอม (consent record) พร้อมวันเวลาและเวอร์ชันนโยบาย",
+  "risk": "Medium",
+  "method": "ตรวจ DB"
+ },
+ {
+  "id": 165,
+  "category": "13. PDPA & Privacy",
+  "item": "ข้อมูลส่วนบุคคลไม่ปรากฏใน URL parameter หรือ referrer",
+  "risk": "High",
+  "method": "ตรวจ URL หน้า order/profile"
+ },
+ {
+  "id": 166,
+  "category": "13. PDPA & Privacy",
+  "item": "ข้อมูลอ่อนไหวถูกเข้ารหัสตอนจัดเก็บ (at rest)",
+  "risk": "High",
+  "method": "ตรวจ schema / disk encryption"
+ },
+ {
+  "id": 167,
+  "category": "13. PDPA & Privacy",
+  "item": "มีขั้นตอนรองรับสิทธิเจ้าของข้อมูล (ขอดู / แก้ไข / ลบ / คัดค้าน)",
+  "risk": "High",
+  "method": "ตรวจเอกสารและ flow"
+ },
+ {
+  "id": 168,
+  "category": "13. PDPA & Privacy",
+  "item": "กำหนดระยะเวลาเก็บข้อมูลและมีการลบเมื่อครบกำหนด",
+  "risk": "Medium",
+  "method": "ตรวจ retention policy"
+ },
+ {
+  "id": 169,
+  "category": "13. PDPA & Privacy",
+  "item": "มีข้อตกลงประมวลผลข้อมูล (DPA) กับผู้ให้บริการภายนอก",
+  "risk": "Medium",
+  "method": "ตรวจสัญญา"
+ },
+ {
+  "id": 170,
+  "category": "13. PDPA & Privacy",
+  "item": "ระบุชื่อและช่องทางติดต่อเจ้าหน้าที่คุ้มครองข้อมูล (DPO)",
+  "risk": "Medium",
+  "method": "ตรวจหน้า privacy"
+ },
+ {
+  "id": 171,
+  "category": "13. PDPA & Privacy",
+  "item": "มีแผนแจ้งเหตุข้อมูลรั่วไหลต่อ สคส. ภายใน 72 ชั่วโมง",
+  "risk": "High",
+  "method": "ตรวจเอกสาร"
+ },
+ {
+  "id": 172,
+  "category": "13. PDPA & Privacy",
+  "item": "การ export ข้อมูลลูกค้าถูกควบคุมสิทธิ์และบันทึก log",
+  "risk": "High",
+  "method": "ตรวจสิทธิ์และ log"
+ },
+ {
+  "id": 173,
+  "category": "14. Third-party & Supply Chain",
+  "item": "จัดทำรายการ script ภายนอกทั้งหมดที่โหลดบนเว็บ",
+  "risk": "Medium",
+  "method": "Network tab / CSP report"
+ },
+ {
+  "id": 174,
+  "category": "14. Third-party & Supply Chain",
+  "item": "ใช้ SRI กับ third-party script ทุกตัวที่ทำได้",
+  "risk": "Medium",
+  "method": "View source"
+ },
+ {
+  "id": 175,
+  "category": "14. Third-party & Supply Chain",
+  "item": "Tag Manager มีการควบคุมสิทธิ์ผู้แก้ไขและ approval flow",
+  "risk": "High",
+  "method": "ตรวจ GTM user permission"
+ },
+ {
+  "id": 176,
+  "category": "14. Third-party & Supply Chain",
+  "item": "ไม่มี script จากโดเมนที่หมดอายุหรือไม่รู้จัก",
+  "risk": "High",
+  "method": "whois โดเมนที่โหลด"
+ },
+ {
+  "id": 177,
+  "category": "14. Third-party & Supply Chain",
+  "item": "Chat / review widget เข้าถึงข้อมูลใน form สำคัญไม่ได้",
+  "risk": "High",
+  "method": "ตรวจหน้า checkout"
+ },
+ {
+  "id": 178,
+  "category": "14. Third-party & Supply Chain",
+  "item": "iframe จากภายนอกใช้ sandbox attribute",
+  "risk": "Medium",
+  "method": "View source"
+ },
+ {
+  "id": 179,
+  "category": "14. Third-party & Supply Chain",
+  "item": "ตรวจสอบ script ที่โหลดต่อกันเป็นทอด (script chain)",
+  "risk": "Medium",
+  "method": "Network waterfall"
+ },
+ {
+  "id": 180,
+  "category": "14. Third-party & Supply Chain",
+  "item": "ประเมิน security posture ของ vendor ก่อนเริ่มใช้งาน",
+  "risk": "Medium",
+  "method": "แบบประเมิน vendor"
+ },
+ {
+  "id": 181,
+  "category": "14. Third-party & Supply Chain",
+  "item": "ทบทวนรายการ third-party ทุกไตรมาส",
+  "risk": "Low",
+  "method": "ตารางทบทวน"
+ },
+ {
+  "id": 182,
+  "category": "15. Backup & Recovery",
+  "item": "Backup อัตโนมัติทุกวันครอบคลุมทั้งฐานข้อมูลและไฟล์",
+  "risk": "Critical",
+  "method": "ตรวจ cron / backup log"
+ },
+ {
+  "id": 183,
+  "category": "15. Backup & Recovery",
+  "item": "Backup เก็บนอกเซิร์ฟเวอร์หลัก (offsite / คนละ region)",
+  "risk": "Critical",
+  "method": "ตรวจปลายทาง backup"
+ },
+ {
+  "id": 184,
+  "category": "15. Backup & Recovery",
+  "item": "ไฟล์ backup ถูกเข้ารหัส",
+  "risk": "High",
+  "method": "ตรวจไฟล์ backup"
+ },
+ {
+  "id": 185,
+  "category": "15. Backup & Recovery",
+  "item": "ทดสอบ restore จริงอย่างน้อยไตรมาสละครั้ง",
+  "risk": "Critical",
+  "method": "บันทึกผลการ restore"
+ },
+ {
+  "id": 186,
+  "category": "15. Backup & Recovery",
+  "item": "มี backup แบบ immutable หรือ versioned ป้องกัน ransomware",
+  "risk": "High",
+  "method": "ตรวจ storage policy"
+ },
+ {
+  "id": 187,
+  "category": "15. Backup & Recovery",
+  "item": "กำหนด RTO และ RPO ไว้ชัดเจนและสื่อสารกับทีม",
+  "risk": "Medium",
+  "method": "ตรวจเอกสาร"
+ },
+ {
+  "id": 188,
+  "category": "15. Backup & Recovery",
+  "item": "สิทธิ์เข้าถึง backup จำกัดเฉพาะผู้ที่จำเป็น",
+  "risk": "High",
+  "method": "ตรวจ IAM / permission"
+ },
+ {
+  "id": 189,
+  "category": "15. Backup & Recovery",
+  "item": "มีเอกสารขั้นตอนกู้คืนระบบที่เป็นปัจจุบัน",
+  "risk": "Medium",
+  "method": "ตรวจเอกสาร"
+ }
+]

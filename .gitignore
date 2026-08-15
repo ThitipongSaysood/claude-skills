@@ -1,0 +1,11 @@
+# macOS Finder droppings
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Scan output — regenerate it, never commit someone's findings
+scan-*.json
+Security_Report_*.html
+Security_Report_*.xlsx
