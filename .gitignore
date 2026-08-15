@@ -9,3 +9,6 @@ __pycache__/
 scan-*.json
 Security_Report_*.html
 Security_Report_*.xlsx
+
+# ตัวก่อนแก้ เก็บไว้เทียบในเครื่อง ไม่ต้องขึ้น repo
+dist/

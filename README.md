@@ -11,7 +11,7 @@ Skill สำหรับ [Claude Code](https://claude.com/claude-code) — ใ�
 ### แบบที่ 1 — คัดลอกเข้าเครื่อง
 
 ```bash
-git clone https://github.com/<user>/claude-skills.git
+git clone https://github.com/ThitipongSaysood/claude-skills.git
 cp -R claude-skills/skills/web-security-scan ~/.claude/skills/
 ```
 
@@ -28,7 +28,7 @@ cp -R claude-skills/skills/web-security-scan ~/.claude/skills/
 
 ```json
 {
-  "source": "<user>/claude-skills",
+  "source": "ThitipongSaysood/claude-skills",
   "sourceType": "github",
   "skillPath": "skills/web-security-scan/SKILL.md"
 }
